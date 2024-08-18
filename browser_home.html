@@ -61,13 +61,31 @@
   </style>
 </head>
 <body>
-  <h1>ObsidianQT</h1>
+  <h1 id="title">ObsidianQT</h1>
   <div class="search-container">
     <input type="text" class="search-bar" placeholder="Search the web...">
     <button class="search-button" onclick="searchGoogle(event)">Search</button>
   </div>
 
   <script>
+    // Function to get query parameter by name
+    function getQueryParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // Function to update the title and heading
+    function updateTitle() {
+      const titleParam = getQueryParameter('title');
+      if (titleParam) {
+        document.title = `${titleParam} - home`;
+        document.getElementById('title').textContent = titleParam;
+      }
+    }
+
+    // Call the updateTitle function on page load
+    window.onload = updateTitle;
+
     function searchGoogle(event) {
       event.preventDefault(); // Prevent the default form submission behavior
       const searchTerm = document.querySelector('.search-bar').value;
